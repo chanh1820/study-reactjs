@@ -12,16 +12,16 @@ AlbumList.defaultProps = {
 };
 
 function AlbumList(props) {
-    const {albumData} = props
+    const { albumData } = props
     console.log(albumData);
     return (
-        <div className='album-list'>
-            {
-                albumData.map(item => (
-                    <AlbumItem album = {item}/>
-                ))
-            }
-        </div>
+        <ul className='album-list'>
+            {albumData.map(item => (
+                <li key={item.id}>
+                    <AlbumItem album={item} />
+                </li>
+            ))}
+        </ul>
     );
 }
 

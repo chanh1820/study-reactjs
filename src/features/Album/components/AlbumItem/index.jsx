@@ -1,6 +1,6 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-
+import './styles.scss'
 AlbumItem.propTypes = {
     
 };
@@ -10,7 +10,7 @@ function AlbumItem(props) {
     return (
         <div className='album-item'>
             <h2>{album.songName}</h2>
-            <img src={album.thumbnail} alt=''/>
+            <img className='image-item' src={album.thumbnail} alt=''/>
         </div>
     );
 }
