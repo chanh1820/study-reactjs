@@ -1,0 +1,24 @@
+.container{
+  background-image: url(../../../public/asset/41524.jpg);
+  height: 100%;
+  height: auto;
+  background-size: contain;
+  width: 300%;
+  position: absolute;
+  background-repeat: repeat;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+}
+
+.actor{
+    position: absolute;
+    bottom: 180px;
+    background-repeat: no-repeat;
+    img{
+        position: relative;
+        width: inherit;
+        height: inherit;
+    }
+}

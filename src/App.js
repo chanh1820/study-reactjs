@@ -1,12 +1,10 @@
-import logo from './logo.svg';
 import './App.css';
-import TodoFeature from './features/Todo';
-import Album from './features/Album';
+import Part1 from './features/Part1';
 
 function App() {
   return (
     <div className="App">
-      <Album/>
+      <Part1></Part1>
     </div>
   );
 }
