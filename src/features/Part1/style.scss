@@ -60,7 +60,7 @@ body{
   }
 }
 
-.actor-2{
+#actor-2{
   bottom: 180px;
   background-repeat: no-repeat;
   .wrap-text-bubble{
@@ -92,4 +92,8 @@ body{
     bottom: 25%;
     left: 70%;
 }
+}
+
+.hide{
+  display: none !important;
 }
