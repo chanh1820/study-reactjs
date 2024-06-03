@@ -3,6 +3,8 @@ import "../Part1/style.scss"
 import actorStatic from '../../image/actor_static.png';
 import bubble from '../../image/bubble.png';
 import actorButterfly from '../../image/actor_butterfly.gif';
+import acorn from '../../image/acorn.gif';
+import nextArow from '../../image/next_arow.gif';
 
 function Part1() {
   const classHide = 'hide'
@@ -11,6 +13,8 @@ function Part1() {
     actor_static: actorStatic,
     bubble: bubble,
     actorButterfly: actorButterfly,
+    acorn: acorn,
+    nextArow: nextArow,
     oiNhungHatHatde: "Ôi những hạt dẻ này ngon quá",
     khiSocChoiThangCacTroChoi: "Khi Sóc chơi thắng các trò chơi thì sẽ được thưởng hạt dẻ, Sóc đồng ý chơi không nè"
   }
@@ -18,7 +22,9 @@ function Part1() {
     translateX : 0,
     counterTranslateX : 10,
     left : 11,
-    counterLeft: 0.10000,
+    leftAcorn : 30,
+    indexShowButerfly: 400,
+    counterLeft: 0.2,
     index: 0
   }
   document.addEventListener('keydown', function(event) {
@@ -30,12 +36,20 @@ function Part1() {
         }
         data.index ++;
         var actorContent = document.getElementById('actor-content') ;
+        var acornContent = document.getElementById('acorn-content') ;
         if(actorContent.getAttribute('src')!==resource.actor_anim){
           actorContent.setAttribute('src',resource.actor_anim)
         }
         actorContent.style.transform = 'scaleX(1)'
         data.left = data.left - data.counterLeft;  
         translateX.style.backgroundPosition = `${data.left}% center`;
+
+        var container = document.getElementsByClassName('container')[0];
+        var styleContainer = window.getComputedStyle(container);
+        // var counterLeftAcorn = (data.counterLeft/100) * (styleContainer.width.slice(0, -2)/2)
+        data.leftAcorn = data.leftAcorn - data.counterLeft;  
+        console.log(data.leftAcorn);
+        acornContent.style.left = `${ data.leftAcorn}%`;
         break;
       case 37:
         if(!isValidTranslate(37)){
@@ -43,12 +57,20 @@ function Part1() {
         }
         data.index --;
         var actorContent = document.getElementById('actor-content') ;
+        var acornContent = document.getElementById('acorn-content') ;
         if(actorContent.getAttribute('src')!==resource.actor_anim){
           actorContent.setAttribute('src',resource.actor_anim)
         }    
         actorContent.style.transform = 'scaleX(-1)'
         data.left = data.left + data.counterLeft;  
         translateX.style.backgroundPosition = `${data.left}% center`;
+
+        var container = document.getElementsByClassName('container')[0];
+        var styleContainer = window.getComputedStyle(container);
+        // var counterLeftAcorn = (data.counterLeft/100) * (styleContainer.width.slice(0, -2)/2)
+        data.leftAcorn = data.leftAcorn + data.counterLeft;  
+        console.log(data.leftAcorn);
+        acornContent.style.left = `${ data.leftAcorn}%`;
         break;
       default:
         break;
@@ -67,12 +89,15 @@ function Part1() {
   });
   var isValidTranslate = (keyCode)=>{
     console.log(data.index);
-    console.log(keyCode);
+
     switch (keyCode) {
       case 39:
-        if(data.index == 100){
+        if(data.index == data.indexShowButerfly){
           showActorButterfly();
           return false;
+        }else if(data.index == 125){
+          bonusAcorn();
+          return true;
         }else{
           hideActorButterfly();
           return true;
@@ -81,6 +106,9 @@ function Part1() {
       case 37:
         if(data.index == 0){
           return false;
+        }else if(data.index == 126){
+          bonusAcorn();
+          return true;
         }else{
           hideActorButterfly();
           return true;
@@ -92,36 +120,57 @@ function Part1() {
 
     
   }
-
   var showActorButterfly = ()=>{
     var actor2 = document.getElementById('actor-2')
-    if(classExists(classHide)){
+    console.log(classExists(actor2, classHide));
+    if(classExists(actor2, classHide)){
         actor2.classList.remove(classHide)
-        // actor2.classList.add(classHide)
     }
   }
-
+  var bonusAcorn = ()=>{
+    var actor2 = document.getElementById('acorn-content')
+    if(!classExists(actor2, classHide)){
+        actor2.classList.add(classHide)
+    }
+    var bubble = document.querySelector('.actor .wrap-text-bubble')
+    if(classExists(bubble, classHide)){
+      bubble.classList.remove(classHide)
+    }
+    setTimeout(function() {
+      actor2.classList.remove(classHide) // hiện acorn
+      bubble.classList.add(classHide) // ẩn bubble
+    }, 3000);
+  }
   var hideActorButterfly = ()=>{
     var actor2 = document.getElementById('actor-2')
-    if(!classExists(classHide)){
+    if(!classExists(actor2, classHide)){
         actor2.classList.add(classHide)
     }
   }
-
-  // var checkTranslateX = () =>{
-  // }
-  function classExists(className) {
-    return document.querySelector("." + className) !== null;
+  function percentToNumber(percentString) {
+    if (percentString.endsWith('%')) {
+        return parseFloat(percentString.slice(0, -1)) / 100;
+    } else {
+        return NaN;
+    }
+}
+  function classExists(element, className) {
+    return  element.classList.contains(className);
   }
   return (
     <div className='container' id='translateX'>
       <div className='wrap'>
+        <div className='acorn'>
+            <img id='acorn-content'
+              src={resource.acorn}
+            />
+        </div>
         <div className='actor'>
             <img id='actor-content'
                 src={resource.actor_static}
                 alt=""
                 />
-            <div className='wrap-text-bubble'>
+            <div className='wrap-text-bubble hide' >
               <div id='bubble'
                 style={{ backgroundImage: `url(${resource.bubble})` }}
                 alt=""
@@ -129,7 +178,6 @@ function Part1() {
                 <span id='text-actor-soc'>{resource.oiNhungHatHatde}</span>
               </div>
             </div>
-
         </div>
         <div id='actor-2' className='hide'>
             <div className='wrap-text-bubble'>
@@ -144,6 +192,11 @@ function Part1() {
             src={resource.actorButterfly}
             alt=""
             />
+        </div>
+        <div >
+          <img id='next-arow' 
+            src={resource.nextArow}
+          />
         </div>
       </div>
     </div>

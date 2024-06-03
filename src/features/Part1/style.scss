@@ -21,10 +21,20 @@ body{
   left: 0px;
   right: 0px;
 }
+
 .wrap{
   // position: relative;
   // width: 100%;
   // height: 100%;
+}
+.acorn{
+  bottom: 180px;
+  #acorn-content{
+      position: absolute;
+      width: 150px;
+      bottom: 10%;
+      left: 30%;
+  }
 }
 .actor{
     bottom: 180px;
@@ -93,7 +103,12 @@ body{
     left: 70%;
 }
 }
-
+#next-arow{
+  position: fixed;
+  width: 150px;
+  bottom: 40%;
+  right: 1%;
+}
 .hide{
   display: none !important;
 }
