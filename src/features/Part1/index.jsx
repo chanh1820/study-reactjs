@@ -1,5 +1,5 @@
-import React from 'react'
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react'
+import { useNavigate} from "react-router-dom";
 import "../Part1/style.scss"
 import actorStatic from '../../image/actor_static.png';
 import bubble from '../../image/bubble.png';
@@ -7,9 +7,35 @@ import actorButterfly from '../../image/actor_butterfly.gif';
 import acorn from '../../image/acorn.gif';
 import nextArow from '../../image/next_arow.gif';
 import dongY from '../../image/dong_y.gif';
+import { useEffect } from 'react';
+
+const useAudio = url => {
+  const [audio] = useState(new Audio(url));
+  const [playing, setPlaying] = useState(false);
+
+  const toggle = () => setPlaying(!playing);
+
+  useEffect(() => {
+      playing ? audio.play() : audio.pause();
+    },
+    [playing]
+  );
+
+  useEffect(() => {
+    audio.addEventListener('ended', () => setPlaying(false));
+    return () => {
+      audio.removeEventListener('ended', () => setPlaying(false));
+    };
+  }, []);
+
+  return [playing, toggle];
+};
 
 function Part1() {
   const navigate = useNavigate();
+
+  const [playing, toggle] = useAudio('/sound/part1.mp3');
+  toggle();
   const classHide = 'hide'
   var resource = {
     actor_anim: "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdmlrczl1ZWNucGNoazIzOXJuZWIxb20zZzRtc2R3bHlpMmhpdXBmMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/kPYi6lrYDnSttCDFih/giphy.gif",
@@ -23,8 +49,8 @@ function Part1() {
     khiSocChoiThangCacTroChoi: "Khi Sóc chơi thắng các trò chơi thì sẽ được thưởng hạt dẻ, Sóc đồng ý chơi không nè",
     soundKhiSocChoiThangCacTroChoi: new Audio('/sound/khi_soc_choi_thang_cac_tro_choi.mp3'),
     soundMinhDongY: new Audio('/sound/minh_dong_y.mp3'),
-    soundOiNhunghatDeNayNgonQua: new Audio('/sound/oi_nhung_hat_de_nay_ngon_qua.mp3')
-
+    soundOiNhunghatDeNayNgonQua: new Audio('/sound/oi_nhung_hat_de_nay_ngon_qua.mp3'),
+    soundNen:new Audio('/sound/part1.mp3')
   }
   var data = {
     translateX : 0,
@@ -137,7 +163,7 @@ function Part1() {
     var dongY = document.getElementById('dong-y')
     if(classExists(dongY, classHide)){
       dongY.classList.remove(classHide)
-  }
+    }
     if(resource.soundKhiSocChoiThangCacTroChoi.paused){
       resource.soundKhiSocChoiThangCacTroChoi.play();
     }
@@ -171,7 +197,7 @@ function Part1() {
   }
 
   var handleDongY = ()=>{
-    navigate("/path/to/push");
+    navigate("/game1");
   }
   return (
     <div className='container' id='translateX'>
