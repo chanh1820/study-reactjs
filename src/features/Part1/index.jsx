@@ -35,7 +35,6 @@ function Part1() {
   const navigate = useNavigate();
 
   const [playing, toggle] = useAudio('/sound/part1.mp3');
-  toggle();
   const classHide = 'hide'
   var resource = {
     actor_anim: "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdmlrczl1ZWNucGNoazIzOXJuZWIxb20zZzRtc2R3bHlpMmhpdXBmMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/kPYi6lrYDnSttCDFih/giphy.gif",
