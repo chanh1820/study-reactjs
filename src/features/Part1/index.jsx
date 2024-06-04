@@ -1,22 +1,30 @@
 import React from 'react'
+import { useNavigate } from "react-router-dom";
 import "../Part1/style.scss"
 import actorStatic from '../../image/actor_static.png';
 import bubble from '../../image/bubble.png';
 import actorButterfly from '../../image/actor_butterfly.gif';
 import acorn from '../../image/acorn.gif';
 import nextArow from '../../image/next_arow.gif';
+import dongY from '../../image/dong_y.gif';
 
 function Part1() {
+  const navigate = useNavigate();
   const classHide = 'hide'
   var resource = {
     actor_anim: "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdmlrczl1ZWNucGNoazIzOXJuZWIxb20zZzRtc2R3bHlpMmhpdXBmMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/kPYi6lrYDnSttCDFih/giphy.gif",
     actor_static: actorStatic,
     bubble: bubble,
-    actorButterfly: actorButterfly,
+    actorButterfly: actorButterfly, 
     acorn: acorn,
     nextArow: nextArow,
+    dongY: dongY,
     oiNhungHatHatde: "Ôi những hạt dẻ này ngon quá",
-    khiSocChoiThangCacTroChoi: "Khi Sóc chơi thắng các trò chơi thì sẽ được thưởng hạt dẻ, Sóc đồng ý chơi không nè"
+    khiSocChoiThangCacTroChoi: "Khi Sóc chơi thắng các trò chơi thì sẽ được thưởng hạt dẻ, Sóc đồng ý chơi không nè",
+    soundKhiSocChoiThangCacTroChoi: new Audio('/sound/khi_soc_choi_thang_cac_tro_choi.mp3'),
+    soundMinhDongY: new Audio('/sound/minh_dong_y.mp3'),
+    soundOiNhunghatDeNayNgonQua: new Audio('/sound/oi_nhung_hat_de_nay_ngon_qua.mp3')
+
   }
   var data = {
     translateX : 0,
@@ -95,7 +103,7 @@ function Part1() {
         if(data.index == data.indexShowButerfly){
           showActorButterfly();
           return false;
-        }else if(data.index == 125){
+        }else if(data.index == 105){
           bonusAcorn();
           return true;
         }else{
@@ -106,7 +114,7 @@ function Part1() {
       case 37:
         if(data.index == 0){
           return false;
-        }else if(data.index == 126){
+        }else if(data.index == 106){
           bonusAcorn();
           return true;
         }else{
@@ -126,6 +134,13 @@ function Part1() {
     if(classExists(actor2, classHide)){
         actor2.classList.remove(classHide)
     }
+    var dongY = document.getElementById('dong-y')
+    if(classExists(dongY, classHide)){
+      dongY.classList.remove(classHide)
+  }
+    if(resource.soundKhiSocChoiThangCacTroChoi.paused){
+      resource.soundKhiSocChoiThangCacTroChoi.play();
+    }
   }
   var bonusAcorn = ()=>{
     var actor2 = document.getElementById('acorn-content')
@@ -134,12 +149,16 @@ function Part1() {
     }
     var bubble = document.querySelector('.actor .wrap-text-bubble')
     if(classExists(bubble, classHide)){
+      if(resource.soundOiNhunghatDeNayNgonQua.paused){
+        resource.soundOiNhunghatDeNayNgonQua.play();
+      }
       bubble.classList.remove(classHide)
     }
     setTimeout(function() {
       actor2.classList.remove(classHide) // hiện acorn
       bubble.classList.add(classHide) // ẩn bubble
     }, 3000);
+
   }
   var hideActorButterfly = ()=>{
     var actor2 = document.getElementById('actor-2')
@@ -147,15 +166,12 @@ function Part1() {
         actor2.classList.add(classHide)
     }
   }
-  function percentToNumber(percentString) {
-    if (percentString.endsWith('%')) {
-        return parseFloat(percentString.slice(0, -1)) / 100;
-    } else {
-        return NaN;
-    }
-}
   function classExists(element, className) {
     return  element.classList.contains(className);
+  }
+
+  var handleDongY = ()=>{
+    navigate("/path/to/push");
   }
   return (
     <div className='container' id='translateX'>
@@ -163,6 +179,7 @@ function Part1() {
         <div className='acorn'>
             <img id='acorn-content'
               src={resource.acorn}
+              alt=''
             />
         </div>
         <div className='actor'>
@@ -196,6 +213,14 @@ function Part1() {
         <div >
           <img id='next-arow' 
             src={resource.nextArow}
+            alt=''
+          />
+        </div>
+        <div >
+          <img id='dong-y'  className='hide'
+            onClick={handleDongY}
+            src={resource.dongY}
+            alt=''
           />
         </div>
       </div>
