@@ -1,0 +1,33 @@
+#container-game1{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: none;
+    height: 100%;
+    width: 100%;
+    background-repeat: repeat;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    .vertical{
+        color: rgb(3, 25, 223);
+        font-size: 30px;
+        cursor: pointer;
+        padding: 16px;
+        display: flex;
+        align-items: center;
+        font-family: "Lemonada", cursive;
+        flex-direction: column;
+        transition: all .3s ease;
+    }
+    .vertical:hover{
+        transform: scale(1.2);
+    }
+    img{
+        width: 100px;
+    }
+}
+

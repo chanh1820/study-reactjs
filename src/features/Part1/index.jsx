@@ -8,33 +8,12 @@ import acorn from '../../image/acorn.gif';
 import nextArow from '../../image/next_arow.gif';
 import dongY from '../../image/dong_y.gif';
 import { useEffect } from 'react';
-
-const useAudio = url => {
-  const [audio] = useState(new Audio(url));
-  const [playing, setPlaying] = useState(false);
-
-  const toggle = () => setPlaying(!playing);
-
-  useEffect(() => {
-      playing ? audio.play() : audio.pause();
-    },
-    [playing]
-  );
-
-  useEffect(() => {
-    audio.addEventListener('ended', () => setPlaying(false));
-    return () => {
-      audio.removeEventListener('ended', () => setPlaying(false));
-    };
-  }, []);
-
-  return [playing, toggle];
-};
+import PlaySoundComponent from '../PlaySound';
+import maserData from '../data'
+import MultiPlayer from '../Mutiplayer';
 
 function Part1() {
   const navigate = useNavigate();
-
-  const [playing, toggle] = useAudio('/sound/part1.mp3');
   const classHide = 'hide'
   var resource = {
     actor_anim: "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdmlrczl1ZWNucGNoazIzOXJuZWIxb20zZzRtc2R3bHlpMmhpdXBmMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/kPYi6lrYDnSttCDFih/giphy.gif",
@@ -200,6 +179,7 @@ function Part1() {
   }
   return (
     <div className='container' id='translateX'>
+      {/* <PlaySoundComponent path={maserData.part1.path}/> */}
       <div className='wrap'>
         <div className='acorn'>
             <img id='acorn-content'
