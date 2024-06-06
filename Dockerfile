@@ -1,6 +1,9 @@
 # Use the official Nginx image as a parent image
 FROM nginx:alpine
 
+# Remove the default Nginx configuration file
+RUN rm /etc/nginx/conf.d/default.conf
+
 # Copy the build output to the Nginx HTML directory
 COPY build/ /usr/share/nginx/html
 
