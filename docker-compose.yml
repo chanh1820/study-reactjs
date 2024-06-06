@@ -16,4 +16,4 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
     ports:
-      - "8080:80" # Change this line to use port 8080
+      - "8081:80" # Change this line to use port 8080
