@@ -1,4 +1,8 @@
 const data = {
+    intro:{
+        path:'.../../video/intro.mp4',
+        buttonNext:"/part1"
+    },
     part1:{
         path:'/sound/game.mp3'
     },

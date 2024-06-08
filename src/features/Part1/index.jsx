@@ -10,7 +10,7 @@ import dongY from '../../image/dong_y.gif';
 import { useEffect } from 'react';
 import PlaySoundComponent from '../PlaySound';
 import maserData from '../data'
-import MultiPlayer from '../Mutiplayer';
+import MultiPlayer from '../AudioPlayer';
 
 function Part1() {
   const navigate = useNavigate();
@@ -39,6 +39,13 @@ function Part1() {
     counterLeft: 0.2,
     index: 0
   }
+  useEffect(() => {
+    setTimeout(()=>{
+      var e = document.e('keyup');
+      e.keyCode= 39; // enter
+      document.trigger(e);    
+    },1000)
+  });   
   document.addEventListener('keydown', function(event) {
     const translateX = document.getElementById('translateX');
     switch (event.keyCode) {
