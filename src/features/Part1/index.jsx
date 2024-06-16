@@ -39,17 +39,21 @@ function Part1() {
     counterLeft: 0.2,
     index: 0
   }
-  useEffect(() => {
-    setTimeout(()=>{
-      var e = document.e('keyup');
-      e.keyCode= 39; // enter
-      document.trigger(e);    
-    },1000)
-  });   
+
+  function sleep(milliseconds) {
+    var start = new Date().getTime();
+    for (var i = 0; i < 1e7; i++) {
+      if ((new Date().getTime() - start) > milliseconds){
+        break;
+      }
+    }
+  }
   document.addEventListener('keydown', function(event) {
     const translateX = document.getElementById('translateX');
     switch (event.keyCode) {
       case 39:
+        console.log(event.key);
+
         if(!isValidTranslate(39)){
           break;
         }
@@ -101,7 +105,6 @@ function Part1() {
       case 39:
         document.getElementById('actor-content').setAttribute('src',resource.actor_static)
         break;
-    
       default:
         break;
     }
@@ -184,6 +187,39 @@ function Part1() {
   var handleDongY = ()=>{
     navigate("/game1");
   }
+  const moving = setInterval(()=>{
+    if(!isValidTranslate(39)){
+      clearInterval(moving)
+    }
+    onLastInputChange();
+  },50)
+
+  // useEffect(()=>{
+  //   onLastInputChange()
+  //   // document.focus();
+
+  //   console.log('dispatchEvent');
+  //   // console.log(new KeyboardEvent());
+  //   // var e = document.event('keyup');
+  //   // e.which = 39; // Character 'A'
+  //   // document.trigger(e);
+  // },[])
+  
+  const onLastInputChange = e => {
+    const keyboardEvent = new KeyboardEvent("keydown", {
+        bubbles : true,
+        cancelable : false,
+        key : "ArrowRight",
+        shiftKey : false,
+        keyCode : 39
+    });
+    document.dispatchEvent(keyboardEvent);
+}
+
+  // while (!isValidTranslate()) {
+  //   onLastInputChange()
+
+  // }
   return (
     <div className='container' id='translateX'>
       {/* <PlaySoundComponent path={maserData.part1.path}/> */}
