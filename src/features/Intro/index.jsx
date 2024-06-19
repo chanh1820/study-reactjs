@@ -16,12 +16,16 @@ function Intro(props) {
     useEffect(() => {
         setTimeout(()=>{
             handleNavigate(dataGame.buttonNext);
-        },8000)
+        },9000)
     });    
-
+    useEffect(() => {
+        var audio = new Audio('/sound/nhac_intro.mp3')
+        audio.volume= 0.5;
+        audio.play();
+    });  
     return (
         <div id='container-intro'>
-            <video className='video'  autoPlay loop muted>
+            <video className='video'  autoPlay loop>
                 <source src={introVideo} type="video/mp4"/>
             </video>
         </div>

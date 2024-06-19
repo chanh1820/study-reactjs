@@ -39,7 +39,11 @@ function Part1() {
     counterLeft: 0.2,
     index: 0
   }
-
+  useEffect(() => {
+    var audio = new Audio('/sound/nhac_part1.mp3')
+    audio.volume= 0.2;
+    audio.play();
+  });  
   function sleep(milliseconds) {
     var start = new Date().getTime();
     for (var i = 0; i < 1e7; i++) {
@@ -163,9 +167,9 @@ function Part1() {
     }
     var bubble = document.querySelector('.actor .wrap-text-bubble')
     if(classExists(bubble, classHide)){
-      if(resource.soundOiNhunghatDeNayNgonQua.paused){
-        resource.soundOiNhunghatDeNayNgonQua.play();
-      }
+      // if(resource.soundOiNhunghatDeNayNgonQua.paused){
+        new Audio('/sound/oi_nhung_hat_de_nay_ngon_qua.mp3').play();
+      // }
       bubble.classList.remove(classHide)
     }
     setTimeout(function() {
