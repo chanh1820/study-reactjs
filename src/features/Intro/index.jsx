@@ -25,7 +25,7 @@ function Intro(props) {
     });  
     return (
         <div id='container-intro'>
-            <video className='video'  autoPlay loop>
+            <video className='video'  autoPlay loop muted >
                 <source src={introVideo} type="video/mp4"/>
             </video>
         </div>
